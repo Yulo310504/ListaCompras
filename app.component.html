@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Lista de Compras</h1>
+
+  <!-- Formulário para adicionar novos itens -->
+  <form (ngSubmit)="addItem()" #itemForm="ngForm">
+    <input type="text" [(ngModel)]="newItem" name="item" required placeholder="Adicione um item" />
+    <button type="submit" [disabled]="itemForm.invalid">Adicionar</button>
+  </form>
+
+  <!-- Lista de itens Não Comprados -->
+  <h3>Itens Não Comprados</h3>
+  <ul>
+    <li *ngFor="let item of getUnboughtItems(); let i = index">
+      <input type="checkbox" [(ngModel)]="item.bought" (change)="toggleBought(item)" />
+      <input [(ngModel)]="item.name" />
+      <button (click)="removeItem(i)" title="Excluir item">🗑️</button>
+    </li>
+  </ul>
+
+  <!-- Lista de itens Comprados -->
+  <h3>Itens Comprados</h3>
+  <ul>
+    <li *ngFor="let item of getBoughtItems(); let i = index">
+      <input type="checkbox" [(ngModel)]="item.bought" (change)="toggleBought(item)" />
+      <span [class.bought]="item.bought">{{ item.name }}</span>
+      <button (click)="removeItem(i)" title="Excluir item">🗑️</button>
+    </li>
+  </ul>
+</div>
